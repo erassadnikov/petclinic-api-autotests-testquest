@@ -1,5 +1,6 @@
 package dev.ers.petclinic;
 
+import dev.ers.petclinic.client.OwnerClient;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.HttpClientConfig;
@@ -32,6 +33,12 @@ public class ApiTestConfig {
                 .addFilter(new ResponseLoggingFilter())
                 .addFilter(new AllureRestAssured())
                 .build();
+    }
+
+    /** Регистрирует API-клиент, который Spring передает в тесты. */
+    @Bean
+    OwnerClient ownerClient(RequestSpecification specification) {
+        return new OwnerClient(specification);
     }
 
 }
